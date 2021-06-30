@@ -1,0 +1,17 @@
+{
+    "pregunta" : "¿cual es la parte del cuerpo que mas funciones tiene?",
+    "respuestas" : [
+        {
+            "respuesta" : "alert",
+            "correcta" : "add_alert"
+        },
+        {
+            "respuesta" : "alert",
+            "correcta" : "add_alert"
+        },
+        {
+            "respuesta" : "alert",
+            "correcta" : "add_alert"
+        }
+    ]
+}
