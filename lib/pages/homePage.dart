@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:tabbar/models/pregunta.dart';
+import 'package:tabbar/providers/examenesProviders.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
@@ -10,10 +12,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  bool eleccion;
+  
+
+  @override
+  void initState() {
+    eleccion = true; 
+    super.initState();
+  }
  
   final duration = Duration(seconds: 1); 
   var swatch = Stopwatch();
   var temporizador = "00:00:00";
+
 
   void _startTimer(){
     Timer(duration, (){
@@ -45,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return DefaultTabController(length: 2, child: Scaffold(
        appBar: AppBar(
          title: Text("HOME PAGE"),
@@ -57,7 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
          ),
        ),
        body: TabBarView(children: [
-         Center(child: Text("IZQUIERDO"),),
+         _pregunta(),
+         //Center(child: Text("IZQUIERDO"),),
          Center(child: Column(
            mainAxisAlignment: MainAxisAlignment.center,
            children: [
@@ -66,8 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                child: Text("START"),
              onPressed: (){
                print("INICIANDO TEMPORIZADOR");
-              _startSwatch();
-             
+               _startSwatch();
              },
             
            ),
@@ -77,4 +90,43 @@ class _MyHomePageState extends State<MyHomePage> {
        ]),
     ),);
   }
+
+  Widget _pregunta(){
+
+
+    return FutureBuilder(
+      future: examenesProvider.devolverUnaRespuesta() ,
+      builder: (context, snapshot) {
+
+            if(!snapshot.hasData){
+              return CircularProgressIndicator();
+            }else{
+              print("DATOS ");
+              print(snapshot.data);
+              return _preguntaBienBonita(snapshot.data);
+
+            }
+
+             
+            },);
+  }
+
+  Widget _preguntaBienBonita(Pregunta pregunta){
+    return ListTile(
+      title: Text(pregunta.pregunta),
+      subtitle: ListView.builder(
+        itemCount: pregunta.respuestas.length,
+        itemBuilder: (context, index) {
+                      return SwitchListTile(
+                        title: Text(pregunta.respuestas[index].respuesta),
+                        value: eleccion, 
+                        
+                        onChanged: (value) {
+                          print(value);
+                            eleccion = value;
+                         },);
+                    },),
+    );
+  }
+
 }

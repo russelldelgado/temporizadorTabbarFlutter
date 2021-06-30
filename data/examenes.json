@@ -2,16 +2,16 @@
     "pregunta" : "¿cual es la parte del cuerpo que mas funciones tiene?",
     "respuestas" : [
         {
-            "respuesta" : "alert",
-            "correcta" : "add_alert"
+            "respuesta" : "el cuerpo humano es perfecto",
+            "correcta" : false
         },
         {
-            "respuesta" : "alert",
-            "correcta" : "add_alert"
+            "respuesta" : "las piernas por detras del cuerpo",
+            "correcta" : false
         },
         {
-            "respuesta" : "alert",
-            "correcta" : "add_alert"
+            "respuesta" : "pues una respuesta mas porque si",
+            "correcta" : true
         }
     ]
 }
